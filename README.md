@@ -10,8 +10,8 @@ If you find this useful please let me know. If you've got a question, please let
 Features
 ========
 * Create custom settings/options pages
-* Insert User
-* Add and save custom user fields
+* Manage Users (Insert, Update, Delete, Set Roles)
+* Manage Posts (Insert, Update, Delete, Trash)
 * Fetch and Save User Metadata
 * Add columns to the User List
 * Represents data in an object-oriented fashion
@@ -19,5 +19,3 @@ Features
 TODO
 ====
 * Add Test Coverage
-* Make stuff to manipulate posts
-* Autoload the libraries

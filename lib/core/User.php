@@ -45,6 +45,12 @@ class SQ_User extends WP_User {
     return $this;
   }
 
+  /**
+   * save
+   * Save the given user.
+   * If ID is not set it'll attempt to insert the user.
+   * @return bool
+   */
   public function save() {
     if($this->ID !== 0 && isset($this->data->user_pass)) {
       $this->data->user_pass = wp_hash_password($this->data->user_pass);
@@ -59,5 +65,22 @@ class SQ_User extends WP_User {
     }
 
     return $this;
+  }
+
+  /**
+   * delete
+   * Deletes the given user.
+   * NOTE: Leaving the $reassign parameter unset will delete all posts by the given user.
+   * @param $reassign int|null
+   * @return bool
+   */
+  public function delete($reassign = null) {
+    if($this->ID) {
+      wp_delete_user($this->ID, $reassign);
+
+      return true;
+    }
+
+    return false;
   }
 }
