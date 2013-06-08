@@ -1,6 +1,6 @@
 <?php
 
-class SQUEEZE_Input {
+class SQ_Input {
   public static function sanitize($string) {
     return mysql_real_escape_string($string);
   }

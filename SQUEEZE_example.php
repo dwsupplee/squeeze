@@ -1,7 +1,7 @@
 <?php
 
 /*
-Plugin Name: Squeezed Framework
+Plugin Name: Squeeze Framework
 Plugin URI: http://github.com/jdpedrie/squeezed
 Description: A collection of libraries and a hopefully decent development framework to make the a hard job (writing decent code for WordPress) a little less painful.
 Version: 1.0
@@ -18,53 +18,51 @@ License: TBD
  * called manually.
  */
 
-// Our plugin's path.
-define('SQUEEZE_PLUGIN_PATH', dirname(__FILE__));
+include "lib/core/squeeze.php";
 
-// Include our core libraries / helpers.
-include "lib/core/Date.php";
-include "lib/core/Input.php";
-include "lib/core/Menu.php";
-include "lib/core/Options.php";
-include "lib/core/SettingsField.php";
-include "lib/core/SettingsSection.php";
-include "lib/core/User.php";
-include "lib/core/View.php";
+add_action('init', function() {
 
-// Our actual application logic.
-include "lib/AdminUsers.php";
-include "lib/AdminOptions.php";
+  // $user = new SQ_User;
+  // $user->set('name', 'johnny');
+  // $user->set('email', 'johnpedrie@quickenloans.com');
+  // $user->set('user_pass', 'testingtest');
+  // $user->add_role('administrator');
+  // $user->insert();
 
-$adminUsers = new SQUEEZE_Admin_Users();
-$adminOptions = new SQUEEZE_Admin_Options();
+  // print_R($user);
 
-// Create Menu
-$commitmentMenu = new SQUEEZE_Menu();
-$commitmentMenu->setPageTitle('Test Menu');
-$commitmentMenu->setMenuTitle('Test Menu');
-$commitmentMenu->setMenuCapability('manage_options');
-$commitmentMenu->setSlug('SQUEEZE_menu');
-$commitmentMenu->setFunction(array($adminOptions, 'options_page')); // Assign a callback that's set in our application
-$commitmentMenu->execute();
+  $adminUsers = new SQAPP_Admin_Users();
+  $adminOptions = new SQAPP_Admin_Options();
 
-// A sub-menu
-$commitmentSettingsMenu = new SQUEEZE_Menu();
-$commitmentSettingsMenu->setMenuParent('SQUEEZE_menu');
-$commitmentSettingsMenu->setPageTitle('Sub Menu');
-$commitmentSettingsMenu->setMenuTitle('Sub Menu');
-$commitmentSettingsMenu->setMenuCapability('manage_options');
-$commitmentSettingsMenu->setSlug('SQUEEZE_sub_menu');
-$commitmentSettingsMenu->setFunction(array($adminOptions, 'settings_page')); // Again, assign a callback from the application file.
-$commitmentSettingsMenu->execute();
+  // Create Menu
+  $testMenu = new SQ_Menu();
+  $testMenu->setPageTitle('Test Menu');
+  $testMenu->setMenuTitle('Test Menu');
+  $testMenu->setMenuCapability('manage_options');
+  $testMenu->setSlug('SQ_menu');
+  $testMenu->setFunction(array($adminOptions, 'options_page')); // Assign a callback that's set in our application
+  $testMenu->execute();
 
-// Display Custom Profile Fields
-add_action( 'show_user_profile', array($adminUsers, 'addUserFields') );
-add_action( 'edit_user_profile', array($adminUsers, 'addUserFields') );
+  // A sub-menu
+  $testSubMenu = new SQ_Menu();
+  $testSubMenu->setMenuParent('SQ_menu');
+  $testSubMenu->setPageTitle('Sub Menu');
+  $testSubMenu->setMenuTitle('Sub Menu');
+  $testSubMenu->setMenuCapability('manage_options');
+  $testSubMenu->setSlug('SQ_sub_menu');
+  $testSubMenu->setFunction(array($adminOptions, 'settings_page')); // Again, assign a callback from the application file.
+  $testSubMenu->execute();
 
-// Save Custom Profile Fields
-add_action( 'personal_options_update', array($adminUsers, 'saveUserFields') );
-add_action( 'edit_user_profile_update', array($adminUsers, 'saveUserFields') );
+  // Display Custom Profile Fields
+  add_action( 'show_user_profile', array($adminUsers, 'addUserFields') );
+  add_action( 'edit_user_profile', array($adminUsers, 'addUserFields') );
 
-// Add Columns to Users Table
-add_filter( 'manage_users_columns', array($adminUsers, 'showUserFieldsColumnNames') );
-add_filter( 'manage_users_custom_column', array($adminUsers, 'showUserFieldsColumnValues'), 10, 3 );
+  // Save Custom Profile Fields
+  add_action( 'personal_options_update', array($adminUsers, 'saveUserFields') );
+  add_action( 'edit_user_profile_update', array($adminUsers, 'saveUserFields') );
+
+  // Add Columns to Users Table
+  add_filter( 'manage_users_columns', array($adminUsers, 'showUserFieldsColumnNames') );
+  add_filter( 'manage_users_custom_column', array($adminUsers, 'showUserFieldsColumnValues'), 10, 3 );
+  
+});

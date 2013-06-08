@@ -1,6 +1,6 @@
 <?php
 
-class SQUEEZE_Settings_Section {
+class SQ_Settings_Section {
   private $group_key;
   private $group_page;
   private $group_title;
@@ -9,7 +9,7 @@ class SQUEEZE_Settings_Section {
   private $view;
 
   public function __construct() {
-    $this->view = new SQUEEZE_View;
+    $this->view = new SQ_View;
   }
 
   public function setGroupKey($groupKey) {
@@ -33,8 +33,8 @@ class SQUEEZE_Settings_Section {
     };
 
     foreach($fields as $field) {
-      if(!($field instanceof SQUEEZE_Settings_Field)) {
-        throw new Exception('$field must be an instance of SQUEEZE_Settings_Field');
+      if(!($field instanceof SQ_Settings_Field)) {
+        throw new Exception('$field must be an instance of SQ_Settings_Field');
       }
     }
 
@@ -66,14 +66,14 @@ class SQUEEZE_Settings_Section {
   }
 
   public function updateListener() {
-    if(is_null(SQUEEZE_Input::post()))
+    if(is_null(SQ_Input::post()))
       return;
 
-    if(!wp_verify_nonce(SQUEEZE_Input::post('_wpnonce'), $this->group_key))
+    if(!wp_verify_nonce(SQ_Input::post('_wpnonce'), $this->group_key))
       die('Could not verify nonce');
 
     foreach($this->fields as $field) {
-      $field->updateFieldValue(SQUEEZE_Input::post());
+      $field->updateFieldValue(SQ_Input::post());
     }
   }
 }

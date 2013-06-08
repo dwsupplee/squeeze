@@ -10,6 +10,7 @@ If you find this useful please let me know. If you've got a question, please let
 Features
 ========
 * Create custom settings/options pages
+* Insert User
 * Add and save custom user fields
 * Fetch and Save User Metadata
 * Add columns to the User List

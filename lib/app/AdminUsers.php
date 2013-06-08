@@ -1,6 +1,6 @@
 <?php
 
-class SQUEEZE_Admin_Users {
+class SQAPP_Admin_Users {
 
   /**
    * @access private
@@ -14,7 +14,7 @@ class SQUEEZE_Admin_Users {
    * @return null
    */
   public function __construct() {
-    $this->view = new SQUEEZE_View;
+    $this->view = new SQ_View;
   }
 
   /**
@@ -25,7 +25,7 @@ class SQUEEZE_Admin_Users {
    * @return null
    */
   public function addUserFields( $user ) { 
-    $user = new SQUEEZE_User($user->data->ID);
+    $user = new SQ_User($user->data->ID);
 
     $fieldName = $user->get_meta('fieldName');
 
@@ -43,12 +43,12 @@ class SQUEEZE_Admin_Users {
    * @return bool|null
    */
   public function saveUserFields( $user_ID ) {
-    $user = new SQUEEZE_User($user_ID);
+    $user = new SQ_User($user_ID);
 
     if ( !current_user_can( 'edit_user', $user_id ) )
       return false;
 
-    $user->update_meta('fieldName', SQUEEZE_Input::post('fieldName'));
+    $user->update_meta('fieldName', SQ_Input::post('fieldName'));
   }
 
   /**
@@ -58,7 +58,7 @@ class SQUEEZE_Admin_Users {
    * @return array
    */
   public function showUserFieldsColumnNames($columns) {
-    $columns['SQUEEZE_fieldName'] = 'Field Name';
+    $columns['SQ_fieldName'] = 'Field Name';
 
     return $columns;
   }
@@ -71,7 +71,7 @@ class SQUEEZE_Admin_Users {
    * @param int $user_ID
    */
   public function showUserFieldsColumnValues( $val, $column_name, $user_ID ) {
-    $user = new SQUEEZE_User($user_ID);
+    $user = new SQ_User($user_ID);
 
     $fieldName = $user->get_meta('fieldName');
 
@@ -80,7 +80,7 @@ class SQUEEZE_Admin_Users {
     ));
 
     switch ($column_name) {
-        case 'SQUEEZE_fieldName' :
+        case 'SQ_fieldName' :
             return $template;
             break;
         default:

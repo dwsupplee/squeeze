@@ -1,6 +1,6 @@
 <?php
 
-class SQUEEZE_View {
+class SQ_View {
   public function load($view, $data = array()) {
     extract($data);
 

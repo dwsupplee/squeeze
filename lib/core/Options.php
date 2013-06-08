@@ -1,6 +1,6 @@
 <?php
 
-class SQUEEZE_Options {
+class SQ_Options {
   public static function get($key) {
     $value = get_option($key);
 

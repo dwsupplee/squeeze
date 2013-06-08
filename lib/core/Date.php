@@ -1,11 +1,20 @@
 <?php
 
-class SQUEEZE_Date {
+/**
+ * SQ_Date
+ * Date Helper Functions
+ */
+class SQ_Date {
+
+  /**
+   * @access private
+   * @var object DateTime
+   */
   private $date;
 
-  public function __construct($date = null) {
+  public function __construct(DateTime $date = null) {
     if(is_null($date)) {
-      $this->date = date('Y-m-d');
+      $this->date = new DateTime;
     }
     else {
       $this->date = $date;
@@ -17,13 +26,10 @@ class SQUEEZE_Date {
   }
 
   public function getWeekDateRange() {
-    $getRange = function($date) {
-      $ts = strtotime($date);
-      $start = (date('w', $ts) == 0) ? $ts : strtotime('last sunday', $ts);
-      return array(date('Y-m-d', $start),
-                   date('Y-m-d', strtotime('next saturday', $start)));
-    };
-
-    return $getRange($this->date);
+    var_dump($date);
+    $day_of_week = $date->format("w");
+    $date->modify("-$day_of_week day");
+    print_R($day_of_week);
+    print_R($date);
   }
 }

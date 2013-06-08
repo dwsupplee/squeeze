@@ -2,7 +2,7 @@
   <div id="icon-options-general" class="icon32"><br></div>
   <h2><?=$group_title; ?></h2>
 
-  <?php if(SQUEEZE_Input::post()) : ?>
+  <?php if(SQ_Input::post()) : ?>
   <div id="setting-error-settings_updated" class="updated settings-error"> 
     <p><strong>Settings saved.</strong></p>
   </div>

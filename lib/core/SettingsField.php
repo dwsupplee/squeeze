@@ -1,6 +1,6 @@
 <?php
 
-class SQUEEZE_Settings_Field {
+class SQ_Settings_Field {
   private $field_key;
   private $field_title;
   private $field_type;
@@ -17,7 +17,7 @@ class SQUEEZE_Settings_Field {
   private $view;
 
   public function __construct() {
-    $this->view = new SQUEEZE_View;
+    $this->view = new SQ_View;
   }
 
   public function setFieldKey($fieldKey) {

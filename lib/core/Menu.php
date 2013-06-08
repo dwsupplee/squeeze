@@ -1,6 +1,6 @@
 <?php
 
-class SQUEEZE_Menu {
+class SQ_Menu {
   private $menu_parent;
   private $page_title;
   private $menu_title;

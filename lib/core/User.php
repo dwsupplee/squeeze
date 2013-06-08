@@ -1,25 +1,14 @@
 <?php
 
-class SQUEEZE_User {
-  
-  /**
-   * @param $user_ID int
-   * @return object
-   * @is_chainable true
-   */
-  public function __construct($user_ID) {
-    $this->user_id = $user_ID;
-
-    return $this;
-  }
+class SQ_User extends WP_User {
 
   /**
    * @param $key string
    * @return string
    * @is_chainable false
    */
-  public function get_meta($key) {
-    return get_user_meta($this->user_id, $key, true);
+  public function get($key) {
+    return $this->__get($key);
   }
 
   /**
@@ -28,12 +17,34 @@ class SQUEEZE_User {
    * @return object
    * @is_chainable true
    */
-  public function update_meta($key, $value) {
-    $value = SQUEEZE_Input::sanitize($value);
+  public function set($key, $value) {
+    $value = SQ_Input::sanitize($value);
 
+    // meh. I'll go ahead and fix a wordpress error. -_-
+    if(!is_object($this->data)) {
+      $this->data = new stdClass();
+    }
+
+    $this->__set($key, $value);
     update_user_meta($this->user_id, $key, $value);
 
     return $this;
   }
- 
+
+  /**
+   * insert
+   * Creates a new user.
+   * Usage:
+   * $user = new SQ_User;
+   * $user->set('name', 'username');
+   * ......
+   * $user->insert();
+   * @return object SQ_User
+   */
+  public function insert() {
+    if($this->ID === 0) {
+      $id = wp_insert_user($this);
+      return new self($id);
+    }
+  }
 }
