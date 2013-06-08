@@ -18,3 +18,7 @@ add_action('init', function() {
     }
   });
 });
+
+if(function_exists('squeeze_init')) {
+  add_action('init', 'squeeze_init');
+}

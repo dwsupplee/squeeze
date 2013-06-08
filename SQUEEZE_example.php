@@ -2,7 +2,7 @@
 
 /*
 Plugin Name: Squeeze Framework
-Plugin URI: http://github.com/jdpedrie/squeezed
+Plugin URI: http://github.com/jdpedrie/squeeze
 Description: A collection of libraries and a hopefully decent development framework to make the a hard job (writing decent code for WordPress) a little less painful.
 Version: 1.0
 Author: John Dennis Pedrie
@@ -10,26 +10,7 @@ Author URI: http://johnpedrie.com
 License: TBD
 */
 
-/********************************************************
- * So, let's walk through this stuff.
- * The main plugin file will be our launcher.
- * We'll include our different classes and be move on.
- * I'd like to autoload these later, but right now they're
- * called manually.
- */
-
-include "lib/core/squeeze.php";
-
-add_action('init', function() {
-
-  // $user = new SQ_User;
-  // $user->set('name', 'johnny');
-  // $user->set('email', 'johnpedrie@quickenloans.com');
-  // $user->set('user_pass', 'testingtest');
-  // $user->add_role('administrator');
-  // $user->insert();
-
-  // print_R($user);
+function squeeze_init() {
 
   $adminUsers = new SQAPP_Admin_Users();
   $adminOptions = new SQAPP_Admin_Options();
@@ -64,5 +45,6 @@ add_action('init', function() {
   // Add Columns to Users Table
   add_filter( 'manage_users_columns', array($adminUsers, 'showUserFieldsColumnNames') );
   add_filter( 'manage_users_custom_column', array($adminUsers, 'showUserFieldsColumnValues'), 10, 3 );
-  
-});
+}
+
+include "lib/core/squeeze.php";

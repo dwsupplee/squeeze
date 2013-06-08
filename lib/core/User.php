@@ -1,6 +1,20 @@
 <?php
 
+/**
+ * SQ_User
+ * Adds a layer of functionality on top of the default WP_User class.
+ * @extends WP_User
+ */
 class SQ_User extends WP_User {
+
+  /**
+   * These are all the fields that are exempted from being saved as usermeta.
+   * @var array $insert_fields
+   * @access private
+   */
+  private $insert_fields = array(
+    'ID', 'user_pass', 'user_login', 'user_nicename', 'user_url', 'user_email', 'display_name', 'nickname', 'first_name', 'last_name', 'description', 'rich_editing', 'user_registered', 'role', 'jabber', 'aim', 'yim'
+  );
 
   /**
    * @param $key string
@@ -31,20 +45,19 @@ class SQ_User extends WP_User {
     return $this;
   }
 
-  /**
-   * insert
-   * Creates a new user.
-   * Usage:
-   * $user = new SQ_User;
-   * $user->set('name', 'username');
-   * ......
-   * $user->insert();
-   * @return object SQ_User
-   */
-  public function insert() {
-    if($this->ID === 0) {
-      $id = wp_insert_user($this);
-      return new self($id);
+  public function save() {
+    if($this->ID !== 0 && isset($this->data->user_pass)) {
+      $this->data->user_pass = wp_hash_password($this->data->user_pass);
     }
+
+    $this->ID = wp_insert_user($this);
+
+    foreach($this->data as $key=>$val) {
+      if(!in_array($key, $this->insert_fields)) {
+        update_user_meta($this->ID, $key, $val);
+      }
+    }
+
+    return $this;
   }
 }

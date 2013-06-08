@@ -15,7 +15,7 @@ class SQAPP_Admin_Options {
     // Create a field
     $textarea = new SQ_Settings_Field;
     $textarea->setFieldKey('SQ_textarea');
-    $textarea->setFieldTitle('Sections List');
+    $textarea->setFieldTitle('Values List');
     $textarea->setFieldType(SQ_Settings_Field::FIELD_TEXTAREA);
     $textarea->setFieldInstructions('Enter One Value Per Line');
 
