@@ -1,24 +1,20 @@
 <?php
 
+namespace Squeeze;
+
 // Our plugin's path.
 define('SQ_PLUGIN_PATH', dirname(dirname(dirname(__FILE__))));
 
-add_action('init', function() {
-  spl_autoload_register(function($className) {
-    if(strpos($className, 'SQ_') === 0) {
-      $unPrefixedClassName = str_replace('SQ_', '', $className);
-      $unPrefixedClassName = str_replace('_', '', $unPrefixedClassName);
-      require_once(SQ_PLUGIN_PATH .'/lib/core/'. $unPrefixedClassName .'.php');
-    }
+include "SplClassLoader.php";
+$classLoader = new SplClassLoader('Squeeze', SQ_PLUGIN_PATH);
+$classLoader->register();
 
-    if(strpos($className, 'SQAPP_') === 0) {
-      $unPrefixedClassName = str_replace('SQAPP_', '', $className);
-      $unPrefixedClassName = str_replace('_', '', $unPrefixedClassName);
-      require_once(SQ_PLUGIN_PATH .'/lib/app/'. $unPrefixedClassName .'.php');
-    }
-  });
-});
-
-if(function_exists('squeeze_init')) {
+if(function_exists('squeeze_init'))
+{
   add_action('init', 'squeeze_init');
+}
+
+if(function_exists('squeeze_admin_init'))
+{
+  add_action('admin_init', 'squeeze_admin_init');
 }

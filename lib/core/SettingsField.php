@@ -1,6 +1,9 @@
 <?php
 
-class SQ_Settings_Field {
+namespace Squeeze\Core;
+
+class SettingsField
+{
   private $field_key;
   private $field_title;
   private $field_type;
@@ -16,45 +19,56 @@ class SQ_Settings_Field {
 
   private $view;
 
-  public function __construct() {
+  public function __construct()
+  {
     $this->view = new SQ_View;
   }
 
-  public function setFieldKey($fieldKey) {
+  public function setFieldKey($fieldKey)
+  {
     $this->field_key = $fieldKey;
     $this->value = get_option($this->field_key);
     return $this;
   }
 
-  public function getFieldKey() { return $this->field_key; }
+  public function getFieldKey()
+  { return $this->field_key; }
 
-  public function setFieldTitle($fieldTitle) {
+  public function setFieldTitle($fieldTitle)
+  {
     $this->field_title = $fieldTitle;
     return $this;
   }
 
-  public function getFieldTitle() { return $this->field_title; }
+  public function getFieldTitle()
+  { return $this->field_title; }
 
-  public function setFieldType($fieldType) {
+  public function setFieldType($fieldType)
+  {
     $this->field_type = $fieldType;
     return $this;
   }
 
-  public function getFieldType() { return $this->field_type; }
+  public function getFieldType()
+  { return $this->field_type; }
 
-  public function setFieldInstructions($fieldInstructions) {
+  public function setFieldInstructions($fieldInstructions)
+  {
     $this->field_instructions = $fieldInstructions;
     return $this;
   }
 
-  public function getFieldInstructions() { return $this->field_instructions; }
+  public function getFieldInstructions()
+  { return $this->field_instructions; }
 
-  public function setFieldPreParse($fieldPreParse) {
+  public function setFieldPreParse($fieldPreParse)
+  {
     $this->field_pre_parse = $fieldPreParse;
     return $this;
   }
 
-  public function getFieldPreParse() {
+  public function getFieldPreParse()
+  {
     $args = func_get_args();
 
     if(!$this->field_pre_parse)
@@ -63,12 +77,14 @@ class SQ_Settings_Field {
     return call_user_func_array($this->field_pre_parse, $args);
   }
 
-  public function setFieldPostParse($fieldPostParse) {
+  public function setFieldPostParse($fieldPostParse)
+  {
     $this->field_post_parse = $fieldPostParse;
     return $this;
   }
 
-  public function getFieldPostParse() {
+  public function getFieldPostParse()
+  {
     $args = func_get_args();
 
     if(!$this->field_post_parse)
@@ -77,7 +93,8 @@ class SQ_Settings_Field {
     return call_user_func_array($this->field_post_parse, $args);
   }
 
-  public function getFieldHtml() {
+  public function getFieldHtml()
+  {
     $field = $this->view->load($this->field_type, array(
       'field_key' => $this->field_key,
       'field_value' => $this->getFieldPreParse($this->value)
@@ -92,7 +109,8 @@ class SQ_Settings_Field {
     ));
   }
 
-  public function updateFieldValue($haystack) {
+  public function updateFieldValue($haystack)
+  {
     $value = (isset($haystack[$this->field_key])) ? $haystack[$this->field_key] : null;
 
     if(is_null($value))

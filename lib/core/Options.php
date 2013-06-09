@@ -1,23 +1,32 @@
 <?php
 
-class SQ_Options {
-  public static function get($key) {
+namespace Squeeze\Core;
+
+class Options
+{
+  public static function get($key)
+  {
     $value = get_option($key);
 
-    if(is_serialized($value)) {
+    if(is_serialized($value))
+    {
       return unserialize($value);
     }
 
-    if(self::isJson($value)) {
+    if(self::isJson($value))
+    {
       return json_decode($value);
     }
 
     return $value;
   }
 
-  public static function save($key, $value, $format = 'json') {
-    if(is_array($value) || is_object($value)) {
-      if($format == 'json') {
+  public static function save($key, $value, $format = 'json')
+  {
+    if(is_array($value) || is_object($value))
+    {
+      if($format == 'json')
+      {
         $value = json_encode($value);
       }
       else {
@@ -30,7 +39,8 @@ class SQ_Options {
     return true;
   }
 
-  private function isJson($string) {
+  private function isJson($string)
+  {
    json_decode($string);
    return (json_last_error() == JSON_ERROR_NONE);
   }

@@ -1,6 +1,9 @@
 <?php
 
-class SQ_Menu {
+namespace Squeeze\Core;
+
+class Menu
+{
   private $menu_parent;
   private $page_title;
   private $menu_title;
@@ -10,42 +13,52 @@ class SQ_Menu {
   private $menu_icon;
   private $menu_priority = 99;
 
-  public function setMenuParent($menuParent) {
+  public function setMenuParent($menuParent)
+  {
     $this->menu_parent = $menuParent;
   }
 
-  public function setPageTitle($pageTitle) {
+  public function setPageTitle($pageTitle)
+  {
     $this->page_title = $pageTitle;
     return $this;
   }
 
-  public function setMenuTitle($menuTitle) {
+  public function setMenuTitle($menuTitle)
+  {
     $this->menu_title = $menuTitle;
     return $this;
   }
 
-  public function setMenuCapability($menuCapability) {
+  public function setMenuCapability($menuCapability)
+  {
     $this->menu_capability = $menuCapability;
   }
 
-  public function setSlug($slug) {
+  public function setSlug($slug)
+  {
     $this->slug = $slug;
   }
 
-  public function setFunction($function) {
+  public function setFunction($function)
+  {
     $this->function = $function;
   }
 
-  public function execute() {
+  public function execute()
+  {
     add_action( 'admin_menu', array($this, 'register_menu_page') );
   }
 
-  public function register_menu_page() {
-    if(!$this->menu_icon) {
+  public function register_menu_page()
+  {
+    if(!$this->menu_icon)
+    {
       $this->menu_icon = plugins_url( 'myplugin/images/icon.png' );
     }
 
-    if($this->menu_parent) {
+    if($this->menu_parent)
+    {
       add_submenu_page( $this->menu_parent, $this->page_title, $this->menu_title, $this->menu_capability, $this->slug, $this->function );
     }
     else {

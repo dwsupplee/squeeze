@@ -1,10 +1,12 @@
 <?php
 
+namespace Squeeze\Core;
 /**
  * SQ_Date
  * Date Helper Functions
  */
-class SQ_Date {
+class Date
+{
 
   /**
    * @access private
@@ -12,8 +14,10 @@ class SQ_Date {
    */
   private $date;
 
-  public function __construct(DateTime $date = null) {
-    if(is_null($date)) {
+  public function __construct(DateTime $date = null)
+  {
+    if(is_null($date))
+    {
       $this->date = new DateTime;
     }
     else {
@@ -21,11 +25,13 @@ class SQ_Date {
     }
   }
 
-  public function getDate() {
+  public function getDate()
+  {
     return $this->date;
   }
 
-  public function getWeekDateRange() {
+  public function getWeekDateRange()
+  {
     var_dump($date);
     $day_of_week = $date->format("w");
     $date->modify("-$day_of_week day");

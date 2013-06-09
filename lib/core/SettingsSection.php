@@ -1,6 +1,9 @@
 <?php
 
-class SQ_Settings_Section {
+namespace Squeeze\Core;
+
+class SettingsSection
+{
   private $group_key;
   private $group_page;
   private $group_title;
@@ -8,32 +11,64 @@ class SQ_Settings_Section {
 
   private $view;
 
-  public function __construct() {
+  public function __construct()
+  {
     $this->view = new SQ_View;
   }
 
-  public function setGroupKey($groupKey) {
+  /**
+   * setGroupKey
+   * @param string $groupKey
+   * @return SQ_Settings_Section $this
+   * @access public
+   */
+  public function setGroupKey($groupKey)
+  {
     $this->group_key = $groupKey;
     return $this;
   }
 
-  public function setGroupPage($groupPage) {
+  /**
+   * setGroupPage
+   * @param string $groupPage
+   * @return SQ_Settings_Section $this
+   * @access public
+   */
+  public function setGroupPage($groupPage)
+  {
     $this->group_page = $groupPage;
     return $this;
   }
 
-  public function setGroupTitle($groupTitle) {
+  /**
+   * setGroupTitle
+   * @param string $groupTitle
+   * @return SQ_Settings_Section $this
+   * @access public
+   */
+  public function setGroupTitle($groupTitle)
+  {
     $this->group_title = $groupTitle;
     return $this;
   }
 
-  public function setFields($fields) {
-    if(!is_array($fields)) {
+  /**
+   * setFields
+   * @param SQ_Settings_Field|array $fields
+   * @return SQ_Settings_Section $this
+   * @access public
+   */
+  public function setFields($fields)
+  {
+    if(!is_array($fields))
+    {
       $fields = array($fields);
     };
 
-    foreach($fields as $field) {
-      if(!($field instanceof SQ_Settings_Field)) {
+    foreach($fields as $field)
+    {
+      if(!($field instanceof SQ_Settings_Field))
+      {
         throw new Exception('$field must be an instance of SQ_Settings_Field');
       }
     }
@@ -41,7 +76,8 @@ class SQ_Settings_Section {
     $this->fields = array_merge($this->fields, $fields);
   }
 
-  public function showGroup() {
+  public function showGroup()
+  {
     $this->updateListener();
 
     $fields = $this->showFields();
@@ -54,25 +90,34 @@ class SQ_Settings_Section {
     ));
   }
 
-  private function showFields() {
-    $fields = $this->fields;
+  public function execute()
+  {
+    add_settings_section( $this->group_key, $this->group_title, function()
+      {echo 'test';}, $this->group_page );
 
-    $parsed = array();
-    foreach($fields as $field) {
-      $parsed[] = $field->getFieldHtml();
+    foreach($this->fields as $field)
+    {
+      add_settings_field( $field->getFieldKey(), $field->getFieldTitle(), function()
+        {echo 'test';}, $this->group_page, $this->group_key);
+      register_setting( $this->group_key, $field->getFieldKey(), array($field, 'getFieldPostParse') );
     }
-
-    return implode("\n", $parsed);
   }
 
-  public function updateListener() {
+  public function displaySettingsSection()
+  {
+    settings_fields($this->group_key);
+  }
+
+  public function updateListener()
+  {
     if(is_null(SQ_Input::post()))
       return;
 
     if(!wp_verify_nonce(SQ_Input::post('_wpnonce'), $this->group_key))
       die('Could not verify nonce');
 
-    foreach($this->fields as $field) {
+    foreach($this->fields as $field)
+    {
       $field->updateFieldValue(SQ_Input::post());
     }
   }

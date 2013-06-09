@@ -1,6 +1,9 @@
 <?php
 
-class SQAPP_Admin_Users {
+namespace \Squeeze\App;
+
+class AdminUsers
+{
 
   /**
    * @access private
@@ -13,7 +16,8 @@ class SQAPP_Admin_Users {
    * Instantiate our view object and save for later
    * @return null
    */
-  public function __construct() {
+  public function __construct()
+  {
     $this->view = new SQ_View;
   }
 
@@ -24,7 +28,8 @@ class SQAPP_Admin_Users {
    * @param $user object
    * @return null
    */
-  public function addUserFields( $user ) { 
+  public function addUserFields( $user )
+  { 
     $user = new SQ_User($user->data->ID);
 
     $fieldName = $user->get_meta('fieldName');
@@ -42,7 +47,8 @@ class SQAPP_Admin_Users {
    * @param int $user_ID
    * @return bool|null
    */
-  public function saveUserFields( $user_ID ) {
+  public function saveUserFields( $user_ID )
+  {
     $user = new SQ_User($user_ID);
 
     if ( !current_user_can( 'edit_user', $user_id ) )
@@ -57,7 +63,8 @@ class SQAPP_Admin_Users {
    * @param array $columns
    * @return array
    */
-  public function showUserFieldsColumnNames($columns) {
+  public function showUserFieldsColumnNames($columns)
+  {
     $columns['SQ_fieldName'] = 'Field Name';
 
     return $columns;
@@ -70,7 +77,8 @@ class SQAPP_Admin_Users {
    * @param string $column_name
    * @param int $user_ID
    */
-  public function showUserFieldsColumnValues( $val, $column_name, $user_ID ) {
+  public function showUserFieldsColumnValues( $val, $column_name, $user_ID )
+  {
     $user = new SQ_User($user_ID);
 
     $fieldName = $user->get_meta('fieldName');
@@ -79,7 +87,8 @@ class SQAPP_Admin_Users {
       'fieldName' => $fieldName,
     ));
 
-    switch ($column_name) {
+    switch ($column_name)
+    {
         case 'SQ_fieldName' :
             return $template;
             break;
