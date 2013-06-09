@@ -3,7 +3,7 @@
 namespace Squeeze\Core;
 
 /**
- * SQ_User
+ * User
  * Adds a layer of functionality on top of the default WP_User class.
  * @extends WP_User
  */
@@ -37,7 +37,7 @@ class User extends \WP_User
    */
   public function set($key, $value)
   {
-    $value = SQ_Input::sanitize($value);
+    $value = Input::sanitize($value);
 
     // meh. I'll go ahead and fix a wordpress error. -_-
     if(!is_object($this->data))

@@ -21,7 +21,7 @@ class SettingsField
 
   public function __construct()
   {
-    $this->view = new SQ_View;
+    $this->view = new View;
   }
 
   public function setFieldKey($fieldKey)

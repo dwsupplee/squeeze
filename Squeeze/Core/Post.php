@@ -3,7 +3,7 @@
 namespace Squeeze\Core;
 
 /**
- * SQ_Post
+ * Post
  * WordPress has a class called WP_Post
  * Sort of like WP_User whoo!
  * Oh wait, it's declared as final so I can't extend it
@@ -106,7 +106,7 @@ class Post
    * Set the value of a key. If the key does not exist, add the value to the meta array
    * @param string $key
    * @param string $val
-   * @return SQ_Post $this
+   * @return Post $this
    * @access public
    */
   public function set($key, $val)
@@ -148,7 +148,7 @@ class Post
    * Save the given post to the database.
    * If no ID is set on the current instance, will attempt to create a post.
    * Otherwise, it will update.
-   * @return SQ_Post $this
+   * @return Post $this
    * @access public
    */
   public function save()
@@ -202,7 +202,7 @@ class Post
    * Update an existing post.
    * Should only be called from the save() function.
    * @access private
-   * @return SQ_Post $this
+   * @return Post $this
    */
   private function update()
   {

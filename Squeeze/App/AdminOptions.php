@@ -1,6 +1,6 @@
 <?php
 
-namespace \Squeeze\App;
+namespace Squeeze\App;
 
 /**
  * These functions are given as callbacks in the SQ_example.php file.
@@ -11,7 +11,7 @@ class AdminOptions
 
   public function options_page()
   {
-    $date = new SQ_Date();
+    $date = new \Squeeze\Core\Date();
     print_r($date->getWeekDateRange());exit;
   }
 

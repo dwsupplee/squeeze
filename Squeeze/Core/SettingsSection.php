@@ -13,13 +13,13 @@ class SettingsSection
 
   public function __construct()
   {
-    $this->view = new SQ_View;
+    $this->view = new View;
   }
 
   /**
    * setGroupKey
    * @param string $groupKey
-   * @return SQ_Settings_Section $this
+   * @return SettingsSection $this
    * @access public
    */
   public function setGroupKey($groupKey)
@@ -31,7 +31,7 @@ class SettingsSection
   /**
    * setGroupPage
    * @param string $groupPage
-   * @return SQ_Settings_Section $this
+   * @return SettingsSection $this
    * @access public
    */
   public function setGroupPage($groupPage)
@@ -43,7 +43,7 @@ class SettingsSection
   /**
    * setGroupTitle
    * @param string $groupTitle
-   * @return SQ_Settings_Section $this
+   * @return Settings_Section $this
    * @access public
    */
   public function setGroupTitle($groupTitle)
@@ -54,8 +54,8 @@ class SettingsSection
 
   /**
    * setFields
-   * @param SQ_Settings_Field|array $fields
-   * @return SQ_Settings_Section $this
+   * @param SettingsField|array $fields
+   * @return SettingsSection $this
    * @access public
    */
   public function setFields($fields)
@@ -67,9 +67,9 @@ class SettingsSection
 
     foreach($fields as $field)
     {
-      if(!($field instanceof SQ_Settings_Field))
+      if(!($field instanceof SettingsField))
       {
-        throw new Exception('$field must be an instance of SQ_Settings_Field');
+        throw new Exception('$field must be an instance of SettingsField');
       }
     }
 
@@ -110,15 +110,15 @@ class SettingsSection
 
   public function updateListener()
   {
-    if(is_null(SQ_Input::post()))
+    if(is_null(Input::post()))
       return;
 
-    if(!wp_verify_nonce(SQ_Input::post('_wpnonce'), $this->group_key))
+    if(!wp_verify_nonce(Input::post('_wpnonce'), $this->group_key))
       die('Could not verify nonce');
 
     foreach($this->fields as $field)
     {
-      $field->updateFieldValue(SQ_Input::post());
+      $field->updateFieldValue(Input::post());
     }
   }
 }

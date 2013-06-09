@@ -11,7 +11,7 @@ License: TBD
 */
 
 namespace Squeeze;
-include "lib/core/squeeze.php";
+include "Squeeze/Core/squeeze.php";
 
 function squeeze_init() {
 
@@ -58,7 +58,7 @@ function squeeze_admin_init() {
   $textarea = new Core\SettingsField;
   $textarea->setFieldKey('SQ_textarea');
   $textarea->setFieldTitle('Values List');
-  $textarea->setFieldType(SQ_Settings_Field::FIELD_TEXTAREA);
+  $textarea->setFieldType(Core\SettingsField::FIELD_TEXTAREA);
   $textarea->setFieldInstructions('Enter One Value Per Line');
 
   // The stored value can be parsed prior to display.

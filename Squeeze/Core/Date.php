@@ -2,7 +2,7 @@
 
 namespace Squeeze\Core;
 /**
- * SQ_Date
+ * Date
  * Date Helper Functions
  */
 class Date
@@ -18,7 +18,7 @@ class Date
   {
     if(is_null($date))
     {
-      $this->date = new DateTime;
+      $this->date = new \DateTime;
     }
     else {
       $this->date = $date;

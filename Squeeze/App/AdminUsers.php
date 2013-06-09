@@ -1,6 +1,6 @@
 <?php
 
-namespace \Squeeze\App;
+namespace Squeeze\App;
 
 class AdminUsers
 {
@@ -18,7 +18,7 @@ class AdminUsers
    */
   public function __construct()
   {
-    $this->view = new SQ_View;
+    $this->view = new \Squeeze\Core\View;
   }
 
   /**
@@ -30,7 +30,7 @@ class AdminUsers
    */
   public function addUserFields( $user )
   { 
-    $user = new SQ_User($user->data->ID);
+    $user = new \Squeeze\Core\User($user->data->ID);
 
     $fieldName = $user->get_meta('fieldName');
 
@@ -49,12 +49,12 @@ class AdminUsers
    */
   public function saveUserFields( $user_ID )
   {
-    $user = new SQ_User($user_ID);
+    $user = new \Squeeze\Core\User($user_ID);
 
     if ( !current_user_can( 'edit_user', $user_id ) )
       return false;
 
-    $user->update_meta('fieldName', SQ_Input::post('fieldName'));
+    $user->update_meta('fieldName', \Squeeze\Core\Input::post('fieldName'));
   }
 
   /**
@@ -65,7 +65,7 @@ class AdminUsers
    */
   public function showUserFieldsColumnNames($columns)
   {
-    $columns['SQ_fieldName'] = 'Field Name';
+    $columns['\Squeeze\Core\fieldName'] = 'Field Name';
 
     return $columns;
   }
@@ -79,7 +79,7 @@ class AdminUsers
    */
   public function showUserFieldsColumnValues( $val, $column_name, $user_ID )
   {
-    $user = new SQ_User($user_ID);
+    $user = new \Squeeze\Core\User($user_ID);
 
     $fieldName = $user->get_meta('fieldName');
 
@@ -89,7 +89,7 @@ class AdminUsers
 
     switch ($column_name)
     {
-        case 'SQ_fieldName' :
+        case '\Squeeze\Core\fieldName' :
             return $template;
             break;
         default:
