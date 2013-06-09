@@ -12,7 +12,7 @@ class AdminOptions
   public function options_page()
   {
     $date = new \Squeeze\Core\Date();
-    print_r($date->getWeekDateRange());exit;
+    print_r($date->getWeekDateRange());
   }
 
   public function settings_page()

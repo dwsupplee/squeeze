@@ -19,6 +19,7 @@ class Date
     if(is_null($date))
     {
       $this->date = new \DateTime;
+      $this->date->modify('midnight');
     }
     else {
       $this->date = $date;
@@ -32,10 +33,17 @@ class Date
 
   public function getWeekDateRange()
   {
-    var_dump($date);
-    $day_of_week = $date->format("w");
-    $date->modify("-$day_of_week day");
-    print_R($day_of_week);
-    print_R($date);
+    $startDate = $this->date;
+    if($startDate->format('l') !== 'Sunday')
+    {
+      $startDate = $this->date->modify('last Sunday');
+    }
+
+    $endDate = clone $startDate;
+    $endDate->modify('+7 days');
+    return array(
+      'start_date' => $startDate,
+      'end_date' => $endDate
+    );
   }
 }
