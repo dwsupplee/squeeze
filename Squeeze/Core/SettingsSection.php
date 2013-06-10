@@ -83,10 +83,10 @@ class SettingsSection
     $fields = $this->showFields();
 
     return $this->view->load('settings/section', array(
-      'fields' => $fields,
+      'fields'      => $fields,
       'group_title' => $this->group_title,
-      'group_key' => $this->group_key,
-      'group_page' => $this->group_page
+      'group_key'   => $this->group_key,
+      'group_page'  => $this->group_page
     ));
   }
 

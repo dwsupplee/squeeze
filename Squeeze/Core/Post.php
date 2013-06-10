@@ -11,19 +11,19 @@ namespace Squeeze\Core;
  */
 class Post
 {
-  const TYPE_POST = 'post';
-  const TYPE_PAGE = 'page';
-  const TYPE_ATTACHMENT = 'attachment';
-  const TYPE_LINK = 'link';
+  const TYPE_POST          = 'post';
+  const TYPE_PAGE          = 'page';
+  const TYPE_ATTACHMENT    = 'attachment';
+  const TYPE_LINK          = 'link';
   const TYPE_NAV_MENU_ITEM = 'nav_menu_item';
-  const TYPE_CUSTOM = 'custom';
+  const TYPE_CUSTOM        = 'custom';
 
-  const STATUS_DRAFT = 'draft';
-  const STATUS_PUBLISH = 'publish';
-  const STATUS_PENDING = 'pending';
-  const STATUS_FUTURE = 'future';
-  const STATUS_PRIVATE = 'private';
-  const STATUS_CUSTOM = 'custom';
+  const STATUS_DRAFT       = 'draft';
+  const STATUS_PUBLISH     = 'publish';
+  const STATUS_PENDING     = 'pending';
+  const STATUS_FUTURE      = 'future';
+  const STATUS_PRIVATE     = 'private';
+  const STATUS_CUSTOM      = 'custom';
 
   private $meta;
 

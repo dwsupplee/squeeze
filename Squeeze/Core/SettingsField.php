@@ -13,9 +13,9 @@ class SettingsField
   private $value;
 
   const FIELD_TEXTAREA = 'settings/textarea';
-  const FIELD_TEXT = 'settings/text';
+  const FIELD_TEXT     = 'settings/text';
   const FIELD_CHECKBOX = 'settings/checkbox';
-  const FIELD_RADIO = 'settings/radio';
+  const FIELD_RADIO    = 'settings/radio';
 
   private $view;
 
@@ -96,16 +96,16 @@ class SettingsField
   public function getFieldHtml()
   {
     $field = $this->view->load($this->field_type, array(
-      'field_key' => $this->field_key,
+      'field_key'   => $this->field_key,
       'field_value' => $this->getFieldPreParse($this->value)
     ));
 
     return $this->view->load('settings/wrapper', array(
-      'field_key' => $this->field_key,
-      'field_title' => $this->field_title,
-      'field_type' => $this->field_type,
+      'field_key'          => $this->field_key,
+      'field_title'        => $this->field_title,
+      'field_type'         => $this->field_type,
       'field_instructions' => $this->field_instructions,
-      'field' => $field
+      'field'              => $field
     ));
   }
 
